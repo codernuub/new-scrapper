@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 
-function connectDB(){
-
+async function connectDB(){
+console.log("trying tp connecct");
 const url = "mongodb://localhost:27017/newsapi";
-mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true});
-mongoose.connection.on('connection' , ()=> console.log("coonnected to database"));
+await mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true},(err)=>{
+  console.log(err ? "error" : "connected")
+});
+//await mongoose.connection.on , ()=> console.log("connected"));
 
 }
 
