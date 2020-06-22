@@ -10,8 +10,10 @@ async function getData(req, res){
 }
 
 async function storeData(data){
-   const news = await News.insertMany(data);
-   return (news ? 1 : 0);
+   if(data){
+   await News.deleteMany({});
+   await News.insertMany(data);
+   }
 }
 
 module.exports = {getData , storeData};

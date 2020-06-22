@@ -5,8 +5,10 @@ const db = require('./database/database');
 const scrap = require('./scrapper');
 
 connectDB()
-.then(()=>scrap())
+.then(()=> scrap())
 .catch(()=>console.log("error"));
+
+setInterval(()=>scrap(),(5 * 60 * 1000));
 
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin', "*");
