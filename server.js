@@ -1,19 +1,25 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const connectDB = require('./database/config');
-const db = require('./database/database');
-const scrap = require('./scrapper');
+const db = require("./database/database");
+const connectDB = require("./database/config");
+const scrap = require("./scrapper");
 
-connectDB()
-.then(()=> scrap())
-.catch(()=>console.log("error"));
+const PORT = parseInt(process.env.PORT) || 3001;
 
-setInterval(()=>scrap(),(5 * 60 * 1000));
+(async () => {
+  try {
+    await connectDB();
+    scrap();
+  } catch (e) {
+    console.log(e.message);
+  }
 
-app.use((req,res,next)=>{
-    res.setHeader('Access-Control-Allow-Origin', "*");
+  app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     next();
-})
+  });
 
-app.get('/education', db.getData);
-app.listen(3001);
+  app.get("/education", db.getData);
+
+  app.listen(PORT, () => console.log(`Listning on http://localhost:${PORT}`));
+})();
