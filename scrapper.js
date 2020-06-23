@@ -32,7 +32,7 @@ async function scrap() {
     });
 
     db.storeData(news);
-    console.log("done scrapping");
+    console.log("working fine");
   } catch (e) {
     console.log(e.message);
   }
