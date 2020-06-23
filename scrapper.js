@@ -2,7 +2,10 @@ const puppeteer = require("puppeteer");
 const db = require("./database/database");
 
 async function scrap() {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ 
+    headless: true,
+    args:["--no-sandbox"]
+  });
 
   try {
     const page = await browser.newPage();
